@@ -1,0 +1,13 @@
+# Digest users configuration
+# Add one entry per subscriber.
+# channels: list of YouTube channel handles (@name) or URLs
+
+users:
+  - name: "Helya Studio (test)"
+    email: "helyastudio03@gmail.com"
+    language: "fr"          # fr or en — digest language
+    channels:
+      - "@lexfridman"
+      - "@hubermanlab"
+      - "@AlexHormozi"
+      - "@NavalR"

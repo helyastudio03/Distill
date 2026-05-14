@@ -1,0 +1,45 @@
+name: Weekly YouTube Digest
+
+on:
+  schedule:
+    - cron: "0 7 * * 0"   # Every Sunday 07:00 UTC
+  workflow_dispatch:
+    inputs:
+      user_email:
+        description: "Send only to this email (leave empty for all users)"
+        required: false
+        default: ""
+      days:
+        description: "Look back N days"
+        required: false
+        default: "7"
+
+jobs:
+  send-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install --no-cache-dir -r digest/requirements.txt
+
+      - name: Send weekly digest
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          YOUTUBE_API_KEY:    ${{ secrets.YOUTUBE_API_KEY }}
+          RESEND_API_KEY:     ${{ secrets.RESEND_API_KEY }}
+          SUPADATA_API_KEY:   ${{ secrets.SUPADATA_API_KEY }}
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.user_email }}" ]; then
+            ARGS="--user ${{ inputs.user_email }}"
+          fi
+          if [ -n "${{ inputs.days }}" ]; then
+            ARGS="$ARGS --days ${{ inputs.days }}"
+          fi
+          python digest/main.py $ARGS
