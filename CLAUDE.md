@@ -46,7 +46,6 @@ main.py
 
 ## Key constraints
 
-- **Supadata** is used instead of the YouTube Transcript API because cloud IPs are blocked by YouTube. The API key must be stored without trailing whitespace — both Anthropic and Supadata keys are `.strip()`-ped before use to guard against copy-paste newlines in GitHub Secrets.
+- **Supadata** is used instead of the YouTube Transcript API because cloud IPs are blocked by YouTube.
 - **Resend sandbox** (`onboarding@resend.dev`) only delivers to the verified owner address. To send to arbitrary recipients, a custom domain must be configured in Resend.
-- **GitHub Actions secrets** must not contain trailing newlines — `httpx` rejects headers with `\n` in the value.
 - The `generate_meta` JSON response from Claude is parsed directly; if it is wrapped in markdown fences, the code strips them before `json.loads`.
