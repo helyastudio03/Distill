@@ -26,7 +26,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install --no-cache-dir -r digest/requirements.txt
+        run: pip install --no-cache-dir -r requirements.txt
 
       - name: Send weekly digest
         env:
@@ -42,4 +42,4 @@ jobs:
           if [ -n "${{ inputs.days }}" ]; then
             ARGS="$ARGS --days ${{ inputs.days }}"
           fi
-          python digest/main.py $ARGS
+          python main.py $ARGS
