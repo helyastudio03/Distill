@@ -17,7 +17,7 @@ def _get_transcript(video_id: str) -> Optional[str]:
         resp = requests.get(
             "https://api.supadata.ai/v1/youtube/transcript",
             params={"videoId": video_id, "text": "true"},
-            headers={"x-api-key": api_key},
+            headers={"x-api-key": api_key.strip()},
             timeout=15,
         )
         if not resp.ok:
