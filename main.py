@@ -2,9 +2,9 @@
 YouTube Digest — weekly email pipeline.
 
 Usage:
-  python digest/main.py                  # run for all users in users.yml
-  python digest/main.py --user your@email.com  # run for one user only
-  python digest/main.py --days 14        # look back 14 days instead of 7
+  python main.py                         # run for all users in users.yml
+  python main.py --user your@email.com  # run for one user only
+  python main.py --days 14              # look back 14 days instead of 7
 """
 import argparse
 import os
@@ -51,7 +51,7 @@ def main():
     parser = argparse.ArgumentParser(description="Send weekly YouTube digest")
     parser.add_argument("--user", default=None, help="Send only to this email address")
     parser.add_argument("--days", type=int, default=7, help="Look back N days (default: 7)")
-    parser.add_argument("--config", default="digest/users.yml", help="Path to users.yml")
+    parser.add_argument("--config", default="users.yml", help="Path to users.yml")
     args = parser.parse_args()
 
     users = load_users(args.config)
