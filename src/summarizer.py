@@ -37,7 +37,7 @@ def summarize_video(video: dict, language: str = "en", api_key: str = None) -> O
 
     lang_instruction = "Respond in French." if language == "fr" else "Respond in English."
 
-    client = anthropic.Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
+    client = anthropic.Anthropic(api_key=(api_key or os.environ.get("ANTHROPIC_API_KEY", "")).strip())
     message = client.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=400,
@@ -87,7 +87,7 @@ def generate_meta(summaries: list[dict], language: str = "en", api_key: str = No
         for v in summaries
     )
 
-    client = anthropic.Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
+    client = anthropic.Anthropic(api_key=(api_key or os.environ.get("ANTHROPIC_API_KEY", "")).strip())
     message = client.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=1000,
